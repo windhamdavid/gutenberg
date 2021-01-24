@@ -10,6 +10,8 @@ const { hasBabelConfig } = require( '../utils' );
 
 const jestE2EConfig = {
 	preset: 'jest-puppeteer',
+	testRunner: 'jest-circus/runner',
+	testEnvironment: require.resolve( './jest-puppeteer-environment' ),
 	testMatch: [ '**/specs/**/*.[jt]s', '**/?(*.)spec.[jt]s' ],
 	testPathIgnorePatterns: [ '/node_modules/' ],
 	reporters:
