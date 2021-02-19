@@ -21,7 +21,13 @@ import {
  */
 import { store as blockEditorStore } from '../../store';
 
+/**
+ * Internal dependencies
+ */
+import { useKsesSanitization } from '../../hooks/utils';
+
 function BlockHTML( { clientId } ) {
+	const sanitizeHTML = useKsesSanitization();
 	const [ html, setHtml ] = useState( '' );
 	const block = useSelect(
 		( select ) => select( blockEditorStore ).getBlock( clientId ),
@@ -29,22 +35,28 @@ function BlockHTML( { clientId } ) {
 	);
 	const { updateBlock } = useDispatch( blockEditorStore );
 	const onChange = () => {
+		const sanitizedHtml = sanitizeHTML( html );
 		const blockType = getBlockType( block.name );
 		const attributes = getBlockAttributes(
 			blockType,
-			html,
+			sanitizedHtml,
 			block.attributes
 		);
 
 		// If html is empty  we reset the block to the default HTML and mark it as valid to avoid triggering an error
-		const content = html ? html : getSaveContent( blockType, attributes );
-		const isValid = html
+		const content = sanitizedHtml
+			? sanitizedHtml
+			: getSaveContent( blockType, attributes );
+		const originalContent = html
+			? html
+			: getSaveContent( blockType, attributes );
+		const isValid = sanitizedHtml
 			? isValidBlockContent( blockType, attributes, content )
 			: true;
 
 		updateBlock( clientId, {
 			attributes,
-			originalContent: content,
+			originalContent,
 			isValid,
 		} );
 

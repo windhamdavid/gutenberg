@@ -160,6 +160,7 @@ function useBlockEditorSettings( settings, hasTemplate ) {
 				'__experimentalSetIsInserterOpened',
 				'alignWide',
 				'allowedBlockTypes',
+				'allowedHtmlTags',
 				'availableLegacyWidgets',
 				'bodyPlaceholder',
 				'codeEditingEnabled',
