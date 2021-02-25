@@ -1,17 +1,10 @@
-/**
- * External dependencies
- */
-const path = require( 'path' );
-
-module.exports = function ( api ) {
+console.log( '=====================> BC 3' );
+module.exports = ( api ) => {
 	api.cache( true );
 	return {
 		presets: [ 'module:metro-react-native-babel-preset' ],
 		plugins: [
-			path.resolve(
-				__dirname,
-				'../../node_modules/@babel/plugin-proposal-async-generator-functions'
-			),
+			'@babel/plugin-proposal-async-generator-functions',
 			'@babel/plugin-transform-runtime',
 			[
 				'react-native-platform-specific-extensions',
@@ -32,13 +25,13 @@ module.exports = function ( api ) {
 						},
 					],
 				],
-				exclude: /node_modules\/(react-native|@react-native-community|@react-navigation)/,
+				exclude: /node_modules\/react-native/,
 			},
 			{
 				// Auto-add `import { createElement } from '@wordpress/element';` when JSX is found
 				plugins: [
 					[
-						'@wordpress/babel-plugin-import-jsx-pragma',
+						'../../packages/babel-plugin-import-jsx-pragma',
 						{
 							scopeVariable: 'createElement',
 							scopeVariableFrag: 'Fragment',
@@ -47,15 +40,12 @@ module.exports = function ( api ) {
 						},
 					],
 				],
-				exclude: /node_modules\/(react-native|@react-native-community|@react-navigation)/,
+				exclude: /node_modules\/react-native/,
 			},
 		],
 		env: {
 			development: {
 				plugins: [ '@babel/transform-react-jsx-source' ],
-			},
-			production: {
-				plugins: [ 'transform-remove-console' ],
 			},
 		},
 	};

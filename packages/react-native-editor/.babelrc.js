@@ -1,3 +1,4 @@
+console.log( '=====================> BC 2' );
 module.exports = ( api ) => {
 	api.cache( true );
 	return {
