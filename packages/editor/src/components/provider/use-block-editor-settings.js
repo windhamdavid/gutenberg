@@ -23,7 +23,7 @@ import { store as editorStore } from '../../store';
 /**
  * Fetches link suggestions from the API. This function is an exact copy of a function found at:
  *
- * packages/edit-navigation/src/index.js
+ * packages/edit-navigation/src/utils/fetch-link-suggestions
  *
  * It seems like there is no suitable package to import this from. Ideally it would be either part of core-data.
  * Until we refactor it, just copying the code is the simplest solution.

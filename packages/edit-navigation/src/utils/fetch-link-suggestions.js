@@ -28,27 +28,13 @@ import { __ } from '@wordpress/i18n';
  * @return {Promise<Object[]>} List of suggestions
  */
 
-export default function fetchLinkSuggestions(
+export default async function fetchLinkSuggestions(
 	search,
-	{ isInitialSuggestions, type, subtype } = {},
+	{ isInitialSuggestions, type, subtype, page, perPage: perPageArg } = {},
 	{ disablePostFormats = false } = {}
 ) {
-	const perPage = isInitialSuggestions ? 3 : 20;
+	const perPage = perPageArg || isInitialSuggestions ? 3 : 20;
 
-	const linkTypes = [ 'post', 'term', 'post-format' ];
-
-	linkTypes.forEach( ( linkType ) => {
-		if ( ! type || type === linkType ) {
-			apiFetch( {
-				path: addQueryArgs( '/wp/v2/search', {
-					search,
-					per_page: perPage,
-					type: 'post',
-					subtype,
-				} ),
-			} ).catch( () => [] ); // fail by returning no results
-		}
-	} );
 	const queries = [];
 
 	if ( ! type || type === 'post' ) {
@@ -56,11 +42,21 @@ export default function fetchLinkSuggestions(
 			apiFetch( {
 				path: addQueryArgs( '/wp/v2/search', {
 					search,
+					page,
 					per_page: perPage,
 					type: 'post',
 					subtype,
 				} ),
-			} ).catch( () => [] ) // fail by returning no results
+			} )
+				.then( ( results ) => {
+					return results.map( ( result ) => {
+						return {
+							...result,
+							meta: { kind: 'post-type', subtype },
+						};
+					} );
+				} )
+				.catch( () => [] ) // fail by returning no results
 		);
 	}
 
@@ -69,11 +65,21 @@ export default function fetchLinkSuggestions(
 			apiFetch( {
 				path: addQueryArgs( '/wp/v2/search', {
 					search,
+					page,
 					per_page: perPage,
 					type: 'term',
 					subtype,
 				} ),
-			} ).catch( () => [] )
+			} )
+				.then( ( results ) => {
+					return results.map( ( result ) => {
+						return {
+							...result,
+							meta: { kind: 'taxonomy', subtype },
+						};
+					} );
+				} )
+				.catch( () => [] )
 		);
 	}
 
@@ -82,20 +88,36 @@ export default function fetchLinkSuggestions(
 			apiFetch( {
 				path: addQueryArgs( '/wp/v2/search', {
 					search,
+					page,
 					per_page: perPage,
 					type: 'post-format',
 					subtype,
 				} ),
-			} ).catch( () => [] )
+			} )
+				.then( ( results ) => {
+					return results.map( ( result ) => {
+						return {
+							...result,
+							meta: { kind: 'post-format', subtype },
+						};
+					} );
+				} )
+				.catch( () => [] )
 		);
 	}
 
 	return Promise.all( queries ).then( ( results ) => {
-		return map( flatten( results ).slice( 0, perPage ), ( result ) => ( {
-			id: result.id,
-			url: result.url,
-			title: decodeEntities( result.title ) || __( '(no title)' ),
-			type: result.subtype || result.type,
-		} ) );
+		return map(
+			flatten( results )
+				.filter( ( result ) => !! result.id )
+				.slice( 0, perPage ),
+			( result ) => ( {
+				id: result.id,
+				url: result.url,
+				title: decodeEntities( result.title ) || __( '(no title)' ),
+				type: result.subtype || result.type,
+				kind: result?.meta?.kind,
+			} )
+		);
 	} );
 }
