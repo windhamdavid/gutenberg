@@ -549,7 +549,10 @@ export default function NavigationLinkEdit( {
 										opensInNewTab: newOpensInNewTab,
 										id,
 										...( newKind && { kind: newKind } ),
-										...( newType && newType !== 'URL' && { type: newType } ),
+										...( newType &&
+											newType !== 'URL' && {
+												type: newType,
+											} ),
 									} )
 								}
 							/>
