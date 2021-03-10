@@ -40,14 +40,14 @@ const fallbackVariations = [
 		icon: categoryIcon,
 		title: __( 'Category Link' ),
 		description: __( 'A link to a category.' ),
-		attributes: { type: 'category', kind: 'post-type' },
+		attributes: { type: 'category', kind: 'taxonomy' },
 	},
 	{
 		name: 'tag',
 		icon: tagIcon,
 		title: __( 'Tag Link' ),
 		description: __( 'A link to a tag.' ),
-		attributes: { type: 'tag', kind: 'post-type' },
+		attributes: { type: 'tag', kind: 'taxonomy' },
 	},
 ];
 

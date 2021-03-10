@@ -58,7 +58,16 @@ const fetchLinkSuggestions = async (
 					type: 'post',
 					subtype,
 				} ),
-			} ).catch( () => [] ) // fail by returning no results
+			} )
+				.then( ( results ) => {
+					return results.map( ( result ) => {
+						return {
+							...result,
+							meta: { kind: 'post-type', subtype },
+						};
+					} );
+				} )
+				.catch( () => [] ) // fail by returning no results
 		);
 	}
 
@@ -72,7 +81,16 @@ const fetchLinkSuggestions = async (
 					type: 'term',
 					subtype,
 				} ),
-			} ).catch( () => [] )
+			} )
+				.then( ( results ) => {
+					return results.map( ( result ) => {
+						return {
+							...result,
+							meta: { kind: 'taxonomy', subtype },
+						};
+					} );
+				} )
+				.catch( () => [] )
 		);
 	}
 
@@ -86,7 +104,16 @@ const fetchLinkSuggestions = async (
 					type: 'post-format',
 					subtype,
 				} ),
-			} ).catch( () => [] )
+			} )
+				.then( ( results ) => {
+					return results.map( ( result ) => {
+						return {
+							...result,
+							meta: { kind: 'post-format', subtype },
+						};
+					} );
+				} )
+				.catch( () => [] )
 		);
 	}
 
@@ -100,6 +127,7 @@ const fetchLinkSuggestions = async (
 				url: result.url,
 				title: decodeEntities( result.title ) || __( '(no title)' ),
 				type: result.subtype || result.type,
+				kind: result?.meta?.kind,
 			} )
 		);
 	} );

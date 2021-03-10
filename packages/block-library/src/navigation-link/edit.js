@@ -548,8 +548,8 @@ export default function NavigationLinkEdit( {
 										} )(),
 										opensInNewTab: newOpensInNewTab,
 										id,
-										newKind,
-										newType,
+										...( newKind && { kind: newKind } ),
+										...( newType && { type: newType } ),
 									} )
 								}
 							/>
