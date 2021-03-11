@@ -104,16 +104,7 @@ const fetchLinkSuggestions = async (
 					type: 'post-format',
 					subtype,
 				} ),
-			} )
-				.then( ( results ) => {
-					return results.map( ( result ) => {
-						return {
-							...result,
-							meta: { kind: 'post-format', subtype },
-						};
-					} );
-				} )
-				.catch( () => [] )
+			} ).catch( () => [] )
 		);
 	}
 
