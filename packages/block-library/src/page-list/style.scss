@@ -19,6 +19,7 @@
 		display: flex;
 		flex-wrap: wrap;
 	}
+
 	.wp-block-pages-list__item__link {
 		display: block;
 		color: inherit;
@@ -99,5 +100,12 @@
 .is-vertical .wp-block-navigation__container {
 	.wp-block-page-list {
 		display: block;
+	}
+}
+
+// space-between justification.
+.wp-block-page-list {
+	.items-justified-space-between & {
+		display: contents;
 	}
 }

@@ -4,11 +4,27 @@
 	.wp-block-page-list {
 		background-color: inherit;
 	}
+
 	// Make the dropdown background white if there's no background color set.
 	&:not(.has-background) {
 		.submenu-container {
 			color: $gray-900;
 			background-color: $white;
+		}
+	}
+
+	// space-between justification.
+	&.items-justified-space-between {
+		.wp-block-page-list > div,
+		.wp-block-page-list {
+			flex: 1;
+		}
+
+		&.has-child-selected .wp-block-page-list > div,
+		&.has-child-selected .wp-block-page-list,
+		&.is-selected .wp-block-page-list > div,
+		&.is-selected .wp-block-page-list {
+			flex: inherit;
 		}
 	}
 }
