@@ -17,6 +17,7 @@
 	&.items-justified-space-between {
 		.wp-block-page-list > div,
 		.wp-block-page-list {
+			display: contents;
 			flex: 1;
 		}
 
