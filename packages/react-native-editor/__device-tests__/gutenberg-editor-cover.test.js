@@ -30,7 +30,8 @@ describe( 'Gutenberg Editor Cover Block test', () => {
 		await editorPage.removeBlockAtPosition( blockNames.cover );
 	} );
 
-	it( 'allows modifying media from within block settings', async () => {
+	// TODO(David): Having multiple buttons with the same label break this.
+	it.only( 'allows modifying media from within block settings', async () => {
 		await editorPage.setHtmlContent( testData.coverHeightWithRemUnit );
 
 		const coverBlock = await editorPage.getBlockAtPosition(
@@ -46,11 +47,12 @@ describe( 'Gutenberg Editor Cover Block test', () => {
 			);
 			await settingsButton.click();
 
-			// Add initial media
-			const addMediaButton = await editorPage.driver.elementByAccessibilityId(
+			// Add initial media via button within bottom sheet (first button exist
+			// in canvas)
+			const addMediaButton = await editorPage.driver.elementsByAccessibilityId(
 				'Add image or video'
 			);
-			await addMediaButton.click();
+			await addMediaButton[ addMediaButton.length - 1 ].click();
 			await editorPage.chooseMediaLibrary();
 
 			// Edit media within block settings
