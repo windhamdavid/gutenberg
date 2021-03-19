@@ -184,7 +184,7 @@ function Navigation( {
 									setResponsiveMenuOpen( false );
 								} }
 							>
-								Close
+								X
 							</Button>
 							<div id={ `${ clientId }-modal-content` }>
 								<ul { ...innerBlocksProps }></ul>
