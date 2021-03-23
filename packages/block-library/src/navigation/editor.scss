@@ -344,3 +344,13 @@ $color-control-label-height: 20px;
 	padding: 0;
 	height: auto;
 }
+
+// Make the menu inert in the editor.
+// This can be revisited in the future, but for now, inherit design from the parent.
+.is-menu-open .wp-block-navigation__responsive-container-content * {
+	pointer-events: none;
+
+	.block-list-appender {
+		display: none;
+	}
+}
