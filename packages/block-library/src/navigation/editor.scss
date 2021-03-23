@@ -299,7 +299,7 @@ $color-control-label-height: 20px;
 // These needs extra specificity in the editor.
 .components-button.wp-block-navigation__responsive-container-close,
 .components-button.wp-block-navigation__responsive-container-open {
-	@include break-mobile {
+	@include break-small {
 		display: none;
 	}
 }
@@ -322,15 +322,17 @@ $color-control-label-height: 20px;
 // so focus is applied naturally on the block container.
 // It's important the right container has focus, otherwise you can't press
 // "Delete" to remove the block.
-.wp-block-navigation__responsive-close {
-	pointer-events: none;
+@include break-small() {
+	.wp-block-navigation__responsive-close {
+		pointer-events: none;
 
-	.block-editor-block-list__layout * {
-		pointer-events: all;
+		.block-editor-block-list__layout * {
+			pointer-events: all;
 
-		// Page List items should remain inert.
-		.wp-block-pages-list__item {
-			pointer-events: none;
+			// Page List items should remain inert.
+			.wp-block-pages-list__item {
+				pointer-events: none;
+			}
 		}
 	}
 }
