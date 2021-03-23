@@ -1,7 +1,6 @@
 /**
  * WordPress dependencies
  */
-// @ts-ignore TODO
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
@@ -16,20 +15,20 @@ import { __ } from '@wordpress/i18n';
 /**
  * @typedef WPLinkSearchOptions
  *
- * @property {?boolean}              isInitialSuggestions Displays initial search suggestions, when true.
- * @property {?WPLinkSearchType}     type                 Filters by search type.
- * @property {?string}               subtype              Slug of the post-type or taxonomy.
- * @property {?number}               page                 Which page of results to return.
- * @property {?number}               perPageArg              Search results per page.
+ * @property {boolean}             [isInitialSuggestions] Displays initial search suggestions, when true.
+ * @property {WPLinkSearchType}    [type]                 Filters by search type.
+ * @property {string}              [subtype]              Slug of the post-type or taxonomy.
+ * @property {number}              [page]                 Which page of results to return.
+ * @property {number}              [perPageArg]           Search results per page.
  */
 
 /**
  * @typedef WPLinkSearchResult
  *
- * @property {?number} id     Post or term id.
- * @property {?string} url    Link url.
- * @property {?string} title  Title of the link.
- * @property {?string} type   The taxonomy or post type slug or type URL.
+ * @property {number} id     Post or term id.
+ * @property {string} url    Link url.
+ * @property {string} title  Title of the link.
+ * @property {string} type   The taxonomy or post type slug or type URL.
  */
 
 /**
@@ -43,7 +42,7 @@ import { __ } from '@wordpress/i18n';
  * Returns a function that when invoked, fetches link suggestions from the API.
  *
  * @param {Object}   [editorSettings]
- * @param {?boolean} [editorSettings.disablePostFormats]
+ * @param {boolean}  [editorSettings.disablePostFormats]
  *
  * @example
  * ```js
