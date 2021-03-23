@@ -36,7 +36,7 @@ import { __ } from '@wordpress/i18n';
  * Fetches link suggestions from the API.
  *
  * @async
- * @typedef {(searchText:string,searchOptions:WPLinkSearchOptions)=>Promise<WPLinkSearchResult[]>} WPFetchLinkSuggestions
+ * @typedef {( searchText: string, searchOptions: WPLinkSearchOptions ) => Promise< WPLinkSearchResult[] >} WPFetchLinkSuggestions
  */
 
 /**
