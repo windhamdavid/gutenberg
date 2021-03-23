@@ -82,13 +82,6 @@
 			}
 		}
 	}
-
-	// Hide empty paragraph tags caused by wpautop. @todo, need to not output them in the first place.
-	[data-micromodal-close] > p,
-	[role="dialog"] > p,
-	> p {
-		display: none;
-	}
 }
 
 .wp-block-navigation__responsive-container-open {
