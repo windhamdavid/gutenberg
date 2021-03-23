@@ -73,6 +73,10 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 
+	// Provide an opinionated default style for menu items inside.
+	// Inherit as much as we can regarding colors, fonts, sizes,
+	// but otherwise provide a baseline.
+	// In a future version, we can explore more customizability.
 	&.is-menu-open {
 		display: flex;
 		flex-direction: column;
@@ -80,9 +84,22 @@
 		// Give it a z-index just higher than the adminbar.
 		z-index: 100000;
 
+		padding: 24px;
+		background-color: inherit;
+
 		.wp-block-navigation__container {
 			display: flex;
 			flex-direction: column;
+			max-width: 400px;
+			margin-left: auto;
+			margin-right: auto;
+			align-items: flex-start;
+			line-height: 48px;
+			padding: 48px 0;
+
+			.wp-block-page-list {
+				flex-direction: column;
+			}
 		}
 	}
 
@@ -153,26 +170,4 @@
 .wp-block-navigation__responsive-container-content {
 	width: 100%;
 	height: 100%;
-}
-
-// Provide an opinionated default style for menu items inside.
-// Inherit as much as we can regarding colors, fonts, sizes,
-// but otherwise provide a baseline.
-// In a future version, we can explore more customizability.
-.is-menu-open .wp-block-navigation__responsive-container-content {
-	padding: 24px;
-	background-color: inherit;
-
-	.wp-block-navigation__container {
-		max-width: 400px;
-		margin-left: auto;
-		margin-right: auto;
-		align-items: flex-start;
-		line-height: 48px;
-		padding: 48px 0;
-
-		.wp-block-page-list {
-			flex-direction: column;
-		}
-	}
 }
