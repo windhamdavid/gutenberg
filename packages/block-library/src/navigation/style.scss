@@ -1,3 +1,7 @@
+/**
+ * General Navigation styles.
+ */
+
 .wp-block-navigation {
 	position: relative;
 	// Normalize list styles.
@@ -33,7 +37,25 @@
 	}
 }
 
-// Menu feature for mobile.
+// Justification.
+// These target the named container class to work even with the additional mobile menu containers.
+.items-justified-center .wp-block-navigation__container {
+	justify-content: center;
+}
+
+.items-justified-right .wp-block-navigation__container {
+	justify-content: flex-end;
+}
+
+.items-justified-space-between .wp-block-navigation__container {
+	justify-content: space-between;
+}
+
+
+/**
+ * Mobile menu.
+ */
+
 .wp-block-navigation__responsive-container {
 	display: none;
 	position: fixed;
@@ -55,17 +77,12 @@
 		display: flex;
 		flex-direction: column;
 
+		// Give it a z-index just higher than the adminbar.
+		z-index: 100000;
+
 		.wp-block-navigation__container {
 			display: flex;
 			flex-direction: column;
-		}
-
-		// Handle adminbar context.
-		body.admin-bar & {
-			top: 46px;
-			@media (min-width: #{ (783px) }) {
-				top: 32px;
-			}
 		}
 	}
 
@@ -83,14 +100,15 @@
 			}
 		}
 	}
+}
 
-	// Hide empty paragraph tags caused by wpautop.
-	// @todo, need to not output them in the first place.
-	[data-micromodal-close] > p,
-	[role="dialog"] > p,
-	> p {
-		display: none;
-	}
+// Hide empty paragraph tags caused by wpautop.
+// @todo, need to not output them in the first place.
+.wp-block-navigation > p,
+.wp-block-navigation__responsive-container [data-micromodal-close] > p,
+.wp-block-navigation__responsive-container [role="dialog"] > p,
+.wp-block-navigation__responsive-container > p {
+	display: none;
 }
 
 // Menu and close buttons.
@@ -132,21 +150,27 @@
 // The menu adds a wrapping container.
 .wp-block-navigation__responsive-close,
 .wp-block-navigation__responsive-dialog,
-.wp-block-navigation__responsive-content {
+.wp-block-navigation__responsive-container-content {
 	width: 100%;
 	height: 100%;
 }
 
-// Justification.
-// These target the named container class to work even with the additional mobile menu containers.
-.items-justified-center .wp-block-navigation__container {
-	justify-content: center;
-}
+// Provide an opinionated default style for menu items inside.
+// Inherit as much as we can regarding colors, fonts, sizes,
+// but otherwise provide a baseline.
+// In a future version, we can explore more customizability.
+.is-menu-open .wp-block-navigation__responsive-container-content {
+	padding: 24px;
 
-.items-justified-right .wp-block-navigation__container {
-	justify-content: flex-end;
-}
+	.wp-block-navigation__container {
+		max-width: 400px;
+		margin-left: auto;
+		margin-right: auto;
+		align-items: flex-start;
+		line-height: 48px;
 
-.items-justified-space-between .wp-block-navigation__container {
-	justify-content: space-between;
+		.wp-block-page-list {
+			flex-direction: column;
+		}
+	}
 }
