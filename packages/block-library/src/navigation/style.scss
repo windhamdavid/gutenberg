@@ -83,6 +83,14 @@
 			}
 		}
 	}
+
+	// Hide empty paragraph tags caused by wpautop.
+	// @todo, need to not output them in the first place.
+	[data-micromodal-close] > p,
+	[role="dialog"] > p,
+	> p {
+		display: none;
+	}
 }
 
 // Menu and close buttons.
@@ -93,8 +101,6 @@
 	background: transparent;
 	border: none;
 	margin: 0;
-
-	// This need higher specificity to override inherited button styles.
 	padding: 0;
 
 	svg {
