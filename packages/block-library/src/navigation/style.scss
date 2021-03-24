@@ -23,7 +23,11 @@
 	list-style: none;
 	margin: 0;
 	padding-left: 0;
-	display: none;
+
+	// Only hide the menu by default if responsiveness is active.
+	.is-responsive {
+		display: none;
+	}
 
 	@include break-small() {
 		// Horizontal layout

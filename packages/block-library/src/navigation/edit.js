@@ -17,15 +17,9 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { useDispatch, withSelect, withDispatch } from '@wordpress/data';
-import {
-	Button,
-	PanelBody,
-	ToggleControl,
-	ToolbarGroup,
-} from '@wordpress/components';
+import { PanelBody, ToggleControl, ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { close, menu, Icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -34,6 +28,7 @@ import useBlockNavigator from './use-block-navigator';
 
 import NavigationPlaceholder from './placeholder';
 import PlaceholderPreview from './placeholder-preview';
+import ResponsiveWrapper from './responsive-wrapper';
 
 function Navigation( {
 	selectedBlockHasDescendants,
@@ -51,7 +46,9 @@ function Navigation( {
 	const [ isPlaceholderShown, setIsPlaceholderShown ] = useState(
 		! hasExistingNavItems
 	);
-	const [ isResponsiveMenuOpen, setResponsiveMenuOpen ] = useState( false );
+	const [ isResponsiveMenuOpen, setResponsiveMenuVisibility ] = useState(
+		false
+	);
 
 	const { selectBlock } = useDispatch( blockEditorStore );
 
@@ -59,18 +56,12 @@ function Navigation( {
 		className: classnames( className, {
 			[ `items-justified-${ attributes.itemsJustification }` ]: attributes.itemsJustification,
 			'is-vertical': attributes.orientation === 'vertical',
+			'is-responsive': attributes.responsiveNavigation,
 		} ),
 	} );
 
 	const { navigatorToolbarButton, navigatorModal } = useBlockNavigator(
 		clientId
-	);
-
-	const responsiveContainerClasses = classnames(
-		'wp-block-navigation__responsive-container',
-		{
-			'is-menu-open': isResponsiveMenuOpen,
-		}
 	);
 
 	const innerBlocksProps = useInnerBlocksProps(
@@ -152,56 +143,28 @@ function Navigation( {
 							} }
 							label={ __( 'Show submenu indicator icons' ) }
 						/>
+						<ToggleControl
+							checked={ attributes.responsiveNavigation }
+							onChange={ ( value ) => {
+								setAttributes( {
+									responsiveNavigation: value,
+								} );
+							} }
+							label={ __( 'Enable responsive menu' ) }
+						/>
 					</PanelBody>
 				) }
 			</InspectorControls>
 			<nav { ...blockProps }>
-				<Button
-					className="wp-block-navigation__responsive-container-open "
-					aria-label="Close menu"
-					data-micromodal-trigger="modal-1"
-					onClick={ () =>
-						setResponsiveMenuOpen( ! isResponsiveMenuOpen )
+				<ResponsiveWrapper
+					onToggle={ ( value ) =>
+						setResponsiveMenuVisibility( value )
 					}
+					isOpen={ isResponsiveMenuOpen }
+					isResponsive={ attributes.responsiveNavigation }
 				>
-					<Icon icon={ menu } />
-				</Button>
-
-				<div
-					className={ responsiveContainerClasses }
-					id={ `${ clientId }-modal` }
-					aria-hidden="true"
-				>
-					<div
-						className="wp-block-navigation__responsive-close"
-						tabIndex="-1"
-						data-micromodal-close
-					>
-						<div
-							className="wp-block-navigation__responsive-dialog"
-							role="dialog"
-							aria-modal="true"
-							aria-labelledby="modal-1-title"
-						>
-							<Button
-								className="wp-block-navigation__responsive-container-close"
-								aria-label="Close menu"
-								data-micromodal-close
-								onClick={ () => {
-									setResponsiveMenuOpen( false );
-								} }
-							>
-								<Icon icon={ close } />
-							</Button>
-							<div
-								className="wp-block-navigation__responsive-container-content"
-								id={ `${ clientId }-modal-content` }
-							>
-								<ul { ...innerBlocksProps }></ul>
-							</div>
-						</div>
-					</div>
-				</div>
+					<ul { ...innerBlocksProps }></ul>
+				</ResponsiveWrapper>
 			</nav>
 		</>
 	);
