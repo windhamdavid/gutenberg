@@ -13,7 +13,6 @@ import {
 	ButtonGroup,
 	KeyboardShortcuts,
 	PanelBody,
-	RangeControl,
 	TextControl,
 	ToolbarButton,
 	Popover,
@@ -37,38 +36,8 @@ import { createBlock } from '@wordpress/blocks';
 import getColorAndStyleProps from './color-props';
 
 const NEW_TAB_REL = 'noreferrer noopener';
-const MIN_BORDER_RADIUS_VALUE = 0;
-const MAX_BORDER_RADIUS_VALUE = 50;
-const INITIAL_BORDER_RADIUS_POSITION = 5;
 
 const EMPTY_ARRAY = [];
-
-function BorderPanel( { borderRadius = '', setAttributes } ) {
-	const initialBorderRadius = borderRadius;
-	const setBorderRadius = useCallback(
-		( newBorderRadius ) => {
-			if ( newBorderRadius === undefined )
-				setAttributes( {
-					borderRadius: initialBorderRadius,
-				} );
-			else setAttributes( { borderRadius: newBorderRadius } );
-		},
-		[ setAttributes ]
-	);
-	return (
-		<PanelBody title={ __( 'Border settings' ) }>
-			<RangeControl
-				value={ borderRadius }
-				label={ __( 'Border radius' ) }
-				min={ MIN_BORDER_RADIUS_VALUE }
-				max={ MAX_BORDER_RADIUS_VALUE }
-				initialPosition={ INITIAL_BORDER_RADIUS_POSITION }
-				allowReset
-				onChange={ setBorderRadius }
-			/>
-		</PanelBody>
-	);
-}
 
 function WidthPanel( { selectedWidth, setAttributes } ) {
 	function handleChange( newWidth ) {
@@ -283,10 +252,6 @@ function ButtonEdit( props ) {
 				anchorRef={ ref }
 			/>
 			<InspectorControls>
-				<BorderPanel
-					borderRadius={ borderRadius }
-					setAttributes={ setAttributes }
-				/>
 				<WidthPanel
 					selectedWidth={ width }
 					setAttributes={ setAttributes }
