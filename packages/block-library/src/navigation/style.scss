@@ -119,6 +119,12 @@
 	}
 }
 
+// Default menu background and font color.
+.wp-block-navigation:not(.has-background) .wp-block-navigation__responsive-container {
+	background-color: #fff;
+	color: #000;
+}
+
 // Hide empty paragraph tags caused by wpautop.
 // @todo, need to not output them in the first place.
 .wp-block-navigation > p,
