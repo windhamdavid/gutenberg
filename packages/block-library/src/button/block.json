@@ -66,6 +66,9 @@
 			"gradients": true
 		},
 		"reusable": false,
+		"__experimentalBorder": {
+			"radius": true
+		},
 		"__experimentalSelector": ".wp-block-button__link"
 	},
 	"editorStyle": "wp-block-button-editor",
