@@ -143,7 +143,8 @@ function render_block_core_navigation( $attributes, $content, $block ) {
 		$colors['css_classes'],
 		$font_sizes['css_classes'],
 		( isset( $attributes['orientation'] ) && 'vertical' === $attributes['orientation'] ) ? array( 'is-vertical' ) : array(),
-		isset( $attributes['itemsJustification'] ) ? array( 'items-justified-' . $attributes['itemsJustification'] ) : array()
+		isset( $attributes['itemsJustification'] ) ? array( 'items-justified-' . $attributes['itemsJustification'] ) : array(),
+		isset( $attributes['responsiveNavigation'] ) && true === $attributes['responsiveNavigation'] ? array( 'is-responsive' ) : array()
 	);
 
 	$inner_blocks_html = '';
@@ -162,23 +163,22 @@ function render_block_core_navigation( $attributes, $content, $block ) {
 
 	$modal_unique_id = uniqid();
 
-	$responsive_container_markup = sprintf(
-		'
-		<button class="wp-block-navigation__responsive-container-open" data-micromodal-trigger="modal-%2$s" aria-label="Open menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-hidden="true" focusable="false"><path d="M5 5.5V7h14V5.5H5zM5 13h14v-1.5H5V13zm0 6h14v-1.5H5V19z"></path></svg></button>
-	<div class="wp-block-navigation__responsive-container" id="modal-%2$s" aria-hidden="true">
-		<div class="wp-block-navigation__responsive-close" tabindex="-1" data-micromodal-close>
-			<div class="wp-block-navigation__responsive-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-%2$s-title" >
-					<button aria-label="Close menu" data-micromodal-close class="wp-block-navigation__responsive-container-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-hidden="true" focusable="false"><path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path></svg></button>
-				<div class="wp-block-navigation__responsive-container-content" id="modal-%2$s-content">
-					<ul class="wp-block-navigation__container">%1$s</ul>
+	// Determine whether or not navigation elements should be wrapped in the markup required to make it responsive.
+	$responsive_container_markup = isset( $attributes['responsiveNavigation'] ) && true === $attributes['responsiveNavigation'] ? sprintf(
+		'<button class="wp-block-navigation__responsive-container-open" data-micromodal-trigger="modal-%2$s" aria-label="Open menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-hidden="true" focusable="false"><path d="M5 5.5V7h14V5.5H5zM5 13h14v-1.5H5V13zm0 6h14v-1.5H5V19z"></path></svg></button>
+			<div class="wp-block-navigation__responsive-container" id="modal-%2$s" aria-hidden="true">
+				<div class="wp-block-navigation__responsive-close" tabindex="-1" data-micromodal-close>
+					<div class="wp-block-navigation__responsive-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-%2$s-title" >
+							<button aria-label="Close menu" data-micromodal-close class="wp-block-navigation__responsive-container-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-hidden="true" focusable="false"><path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path></svg></button>
+						<div class="wp-block-navigation__responsive-container-content" id="modal-%2$s-content">
+							<ul class="wp-block-navigation__container">%1$s</ul>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	',
+			</div>',
 		$inner_blocks_html,
 		$modal_unique_id
-	);
+	) : sprintf( '<ul class="wp-block-navigation__container">%1$s</ul>', $inner_blocks_html );
 
 	return sprintf(
 		'<nav %1$s>%2$s</nav>',
@@ -233,4 +233,4 @@ function block_core_navigation_typographic_presets_backcompatibility( $parsed_bl
 	}
 	return $parsed_block;
 }
-add_filter( 'render_block_data', 'block_core_navigation_typographic_presets_backcompatibility' );
+	add_filter( 'render_block_data', 'block_core_navigation_typographic_presets_backcompatibility' );
