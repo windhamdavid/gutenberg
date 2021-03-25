@@ -141,6 +141,7 @@
 // Menu and close buttons.
 .wp-block-navigation__responsive-container-open,
 .wp-block-navigation__responsive-container-close {
+	vertical-align: middle;
 	cursor: pointer;
 	color: currentColor;
 	background: transparent;
