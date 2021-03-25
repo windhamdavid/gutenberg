@@ -39,7 +39,7 @@ export default function save( { attributes, className } ) {
 	} );
 
 	return (
-		<div { ...useBlockProps.save( { className: wrapperClasses, style } ) }>
+		<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
 			<RichText.Content
 				tagName="a"
 				className={ buttonClasses }
