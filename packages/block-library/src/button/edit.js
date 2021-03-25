@@ -160,10 +160,10 @@ function ButtonEdit( props ) {
 		mergeBlocks,
 	} = props;
 	const {
-		borderRadius,
 		linkTarget,
 		placeholder,
 		rel,
+		style,
 		text,
 		url,
 		width,
@@ -200,6 +200,7 @@ function ButtonEdit( props ) {
 		setAttributes( { text: newText.replace( /<\/?a[^>]*>/g, '' ) } );
 	};
 
+	const borderRadius = style?.border?.radius || 0;
 	const colorProps = getColorAndStyleProps( attributes, colors, true );
 	const ref = useRef();
 	const blockProps = useBlockProps( { ref } );
@@ -227,9 +228,7 @@ function ButtonEdit( props ) {
 						}
 					) }
 					style={ {
-						borderRadius: borderRadius
-							? borderRadius + 'px'
-							: undefined,
+						...style,
 						...colorProps.style,
 					} }
 					onSplit={ ( value ) =>
