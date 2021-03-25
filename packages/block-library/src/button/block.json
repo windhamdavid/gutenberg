@@ -67,7 +67,8 @@
 		},
 		"reusable": false,
 		"__experimentalBorder": {
-			"radius": true
+			"radius": true,
+			"__experimentalSkipSerialization": true
 		},
 		"__experimentalSelector": ".wp-block-button__link"
 	},
