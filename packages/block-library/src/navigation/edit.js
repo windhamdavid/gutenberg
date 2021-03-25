@@ -157,6 +157,7 @@ function Navigation( {
 			</InspectorControls>
 			<nav { ...blockProps }>
 				<ResponsiveWrapper
+					id={ attributes.clientId }
 					onToggle={ ( value ) =>
 						setResponsiveMenuVisibility( value )
 					}

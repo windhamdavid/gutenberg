@@ -2,13 +2,23 @@
  * External dependencies
  */
 import classnames from 'classnames';
+import micromodal from 'micromodal';
 /**
  * WordPress dependencies
  */
 import { close, menu, Icon } from '@wordpress/icons';
 import { Button } from '@wordpress/components';
+import { useEffect } from '@wordpress/element';
 
 export default function ResponsiveWrapper( props ) {
+	useEffect( () => {
+		if ( true === props.isResponsive ) {
+			micromodal.init( {
+				openClass: 'is-menu-open',
+			} );
+		}
+	}, [ props.isResponsive ] );
+
 	if ( ! props.isResponsive ) {
 		return props.children;
 	}
@@ -19,12 +29,14 @@ export default function ResponsiveWrapper( props ) {
 		}
 	);
 
+	const modalId = `${ props.clientId }-modal`;
+
 	return (
 		<>
 			<Button
 				className="wp-block-navigation__responsive-container-open "
 				aria-label="Close menu"
-				data-micromodal-trigger="modal-1"
+				data-micromodal-trigger={ modalId }
 				onClick={ () => props.onToggle( true ) }
 			>
 				<Icon icon={ menu } />
@@ -32,7 +44,7 @@ export default function ResponsiveWrapper( props ) {
 
 			<div
 				className={ responsiveContainerClasses }
-				id={ `${ props.clientId }-modal` }
+				id={ modalId }
 				aria-hidden="true"
 			>
 				<div
@@ -44,7 +56,7 @@ export default function ResponsiveWrapper( props ) {
 						className="wp-block-navigation__responsive-dialog"
 						role="dialog"
 						aria-modal="true"
-						aria-labelledby="modal-1-title"
+						aria-labelledby={ `${ modalId }-title` }
 					>
 						<Button
 							className="wp-block-navigation__responsive-container-close"
