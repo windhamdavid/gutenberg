@@ -147,7 +147,7 @@ jest.doMock(
 			addEventListener: jest.fn(),
 			announceForAccessibility: jest.fn(),
 			removeEventListener: jest.fn(),
-			isScreenReaderEnabled: jest.fn( () => Promise.resolve() ),
+			isScreenReaderEnabled: jest.fn( () => Promise.resolve( false ) ),
 		};
 	}
 );

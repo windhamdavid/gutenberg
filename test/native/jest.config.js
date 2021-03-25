@@ -24,7 +24,7 @@ module.exports = {
 	rootDir: '../../',
 	// Automatically clear mock calls and instances between every test
 	clearMocks: true,
-	preset: 'react-native',
+	preset: '<rootDir>/' + configPath,
 	setupFiles: [
 		'<rootDir>/' + configPath + '/setup.js',
 		'<rootDir>/' + configPath + '/enzyme.config.js',
