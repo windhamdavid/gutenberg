@@ -29,10 +29,6 @@ export default function save( { attributes, className } ) {
 			'no-border-radius': borderRadius === 0,
 		}
 	);
-	const buttonStyle = {
-		...style,
-		...colorProps.style,
-	};
 
 	// The use of a `title` attribute here is soft-deprecated, but still applied
 	// if it had already been assigned, for the sake of backward-compatibility.
@@ -43,13 +39,13 @@ export default function save( { attributes, className } ) {
 	} );
 
 	return (
-		<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
+		<div { ...useBlockProps.save( { className: wrapperClasses, style } ) }>
 			<RichText.Content
 				tagName="a"
 				className={ buttonClasses }
 				href={ url }
 				title={ title }
-				style={ buttonStyle }
+				style={ colorProps.style }
 				value={ text }
 				target={ linkTarget }
 				rel={ rel }
