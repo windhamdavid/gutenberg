@@ -230,7 +230,12 @@ function ButtonEdit( props ) {
 							'no-border-radius': borderRadius === 0,
 						}
 					) }
-					style={ colorAndStyleProps.style }
+					style={ {
+						borderRadius: borderRadius
+							? borderRadius + 'px'
+							: undefined,
+						...colorAndStyleProps.style,
+					} }
 					onSplit={ ( value ) =>
 						createBlock( 'core/button', {
 							...attributes,
