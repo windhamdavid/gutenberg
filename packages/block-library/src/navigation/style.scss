@@ -12,11 +12,6 @@
 		// Overrides generic ".entry-content li" styles on the front end.
 		padding: 0;
 	}
-
-	// Collapse the size of the nav block when burgered.
-	&.is-responsive {
-		display: inline-block;
-	}
 }
 
 // Navigation block inner container.
