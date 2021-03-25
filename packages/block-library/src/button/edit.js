@@ -200,7 +200,11 @@ function ButtonEdit( props ) {
 		setAttributes( { text: newText.replace( /<\/?a[^>]*>/g, '' ) } );
 	};
 
-	const colorProps = getColorAndStyleProps( attributes, colors, true );
+	const colorAndStyleProps = getColorAndStyleProps(
+		attributes,
+		colors,
+		true
+	);
 	const ref = useRef();
 	const blockProps = useBlockProps( { ref } );
 
@@ -221,7 +225,7 @@ function ButtonEdit( props ) {
 					className={ classnames(
 						className,
 						'wp-block-button__link',
-						colorProps.className,
+						colorAndStyleProps.className,
 						{
 							'no-border-radius': borderRadius === 0,
 						}
@@ -230,7 +234,7 @@ function ButtonEdit( props ) {
 						borderRadius: borderRadius
 							? borderRadius + 'px'
 							: undefined,
-						...colorProps.style,
+						...colorAndStyleProps.style,
 					} }
 					onSplit={ ( value ) =>
 						createBlock( 'core/button', {
