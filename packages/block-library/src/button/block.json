@@ -38,9 +38,6 @@
 		"placeholder": {
 			"type": "string"
 		},
-		"style": {
-			"type": "object"
-		},
 		"backgroundColor": {
 			"type": "string"
 		},
