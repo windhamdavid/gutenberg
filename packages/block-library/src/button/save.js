@@ -14,20 +14,13 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 import getColorAndStyleProps from './color-props';
 
 export default function save( { attributes, className } ) {
-	const {
-		borderRadius,
-		linkTarget,
-		rel,
-		text,
-		title,
-		url,
-		width,
-	} = attributes;
+	const { linkTarget, rel, style, text, title, url, width } = attributes;
 
 	if ( ! text ) {
 		return null;
 	}
 
+	const borderRadius = style?.border?.radius || 0;
 	const colorProps = getColorAndStyleProps( attributes );
 	const buttonClasses = classnames(
 		'wp-block-button__link',
@@ -37,7 +30,7 @@ export default function save( { attributes, className } ) {
 		}
 	);
 	const buttonStyle = {
-		borderRadius: borderRadius ? borderRadius + 'px' : undefined,
+		...style,
 		...colorProps.style,
 	};
 
