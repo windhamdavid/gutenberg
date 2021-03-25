@@ -83,7 +83,7 @@ class Theme_JSON_Legacy_Settings_Test extends WP_UnitTestCase {
 	function test_legacy_settings_custom_units_can_be_disabled() {
 		$all_blocks = WP_Theme_JSON::ALL_BLOCKS_NAME;
 		add_theme_support( 'custom-units', array() );
-		$input = gutenberg_get_common_block_editor_settings();
+		$input = get_default_block_editor_settings();
 
 		$expected = array(
 			'units'         => array( array() ),
@@ -98,7 +98,7 @@ class Theme_JSON_Legacy_Settings_Test extends WP_UnitTestCase {
 	function test_legacy_settings_custom_units_can_be_enabled() {
 		$all_blocks = WP_Theme_JSON::ALL_BLOCKS_NAME;
 		add_theme_support( 'custom-units' );
-		$input = gutenberg_get_common_block_editor_settings();
+		$input = get_default_block_editor_settings();
 
 		$expected = array(
 			'units'         => array( 'px', 'em', 'rem', 'vh', 'vw' ),
@@ -113,7 +113,7 @@ class Theme_JSON_Legacy_Settings_Test extends WP_UnitTestCase {
 	function test_legacy_settings_custom_units_can_be_filtered() {
 		$all_blocks = WP_Theme_JSON::ALL_BLOCKS_NAME;
 		add_theme_support( 'custom-units', 'rem', 'em' );
-		$input = gutenberg_get_common_block_editor_settings();
+		$input = get_default_block_editor_settings();
 
 		$expected = array(
 			'units'         => array( 'rem', 'em' ),
