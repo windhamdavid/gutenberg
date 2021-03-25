@@ -20,13 +20,12 @@ export default function save( { attributes, className } ) {
 		return null;
 	}
 
-	const borderRadius = style?.border?.radius || 0;
 	const colorProps = getColorAndStyleProps( attributes );
 	const buttonClasses = classnames(
 		'wp-block-button__link',
 		colorProps.className,
 		{
-			'no-border-radius': borderRadius === 0,
+			'no-border-radius': style?.border?.radius === 0,
 		}
 	);
 

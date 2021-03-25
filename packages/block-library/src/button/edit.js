@@ -200,7 +200,6 @@ function ButtonEdit( props ) {
 		setAttributes( { text: newText.replace( /<\/?a[^>]*>/g, '' ) } );
 	};
 
-	const borderRadius = style?.border?.radius || 0;
 	const colorProps = getColorAndStyleProps( attributes, colors, true );
 	const ref = useRef();
 	const blockProps = useBlockProps( { ref } );
@@ -224,7 +223,7 @@ function ButtonEdit( props ) {
 						'wp-block-button__link',
 						colorProps.className,
 						{
-							'no-border-radius': borderRadius === 0,
+							'no-border-radius': style?.border?.radius === 0,
 						}
 					) }
 					style={ {
