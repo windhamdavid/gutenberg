@@ -15,6 +15,7 @@
 
 -   The bundled `webpack` dependency has been updated from requiring `4.42.0` to requiring `^4.46.0` ([#27821](https://github.com/WordPress/gutenberg/pull/27821)).
 -   The bundled `babel-loader` dependency has been updated from requiring `^8.1.0` to requiring `^8.2.2` ([#30018](https://github.com/WordPress/gutenberg/pull/30018)).
+-   Include YAML files when formatting files with `format-js` ([#30240](https://github.com/WordPress/gutenberg/pull/30240)).
 
 ## 14.0.0 (2021-03-17)
 
