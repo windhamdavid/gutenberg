@@ -3,12 +3,14 @@
  */
 import classnames from 'classnames';
 import micromodal from 'micromodal';
+
 /**
  * WordPress dependencies
  */
-import { close, menu, Icon } from '@wordpress/icons';
+import { close, Icon } from '@wordpress/icons';
 import { Button } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
+import { SVG, Rect } from '@wordpress/primitives';
 
 export default function ResponsiveWrapper( props ) {
 	useEffect( () => {
@@ -39,7 +41,18 @@ export default function ResponsiveWrapper( props ) {
 				data-micromodal-trigger={ modalId }
 				onClick={ () => props.onToggle( true ) }
 			>
-				<Icon icon={ menu } />
+				<SVG
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					width="24"
+					height="24"
+					role="img"
+					ariaHidden="true"
+					focusable="false"
+				>
+					<Rect x="4" y="7.5" width="16" height="1.5" />
+					<Rect x="4" y="15" width="16" height="1.5" />
+				</SVG>
 			</Button>
 
 			<div
